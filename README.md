@@ -17,4 +17,9 @@ FUD Go RAT using TOR for transport, the igraen recieve the control unit of the h
    - incorporate shellcode running module
    - incorporate privilege escalation module
    - Go shell
+   - keylogger
    - igraen-sided comands 
+   - mass commands
+
+# DISCLAIMER
+This is for research porpuses only, don't use it without the user written consent to being hacked with it.
