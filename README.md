@@ -1,7 +1,8 @@
 # The Hierarchy
-FUD Go RAT using TOR for transport, the igraen recieve the control unit of the hunters as callback from it's mallware-hardcoded endpoint
+FUD Go RAT using TOR for transport, the igraen recieve the control unit of the hunters as callback from it's hardcoded endpoint
 
 ## features
+ - names based on [deathworlders](https://deathworlders.com)
  - web interface
  - hunter can work alone
  - remote shell
