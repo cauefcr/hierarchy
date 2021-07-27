@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{.Title}}</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<ul>
+    {{range $idx,$elm := .Log}}
+    <li><a href="http://{{$elm}}.onion/">{{$elm}}</a></li>
+    {{end}}
+</ul>
+</html>
