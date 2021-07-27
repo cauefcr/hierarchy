@@ -12,7 +12,7 @@ FUD Go RAT using TOR for transport, the igraen recieve the control unit of the h
 
 ## to-do
  - Refactor so it's easy to read and change
- - Make it pretty it use
+ - Make it pretty to use
  - Add more functionalities:
    - incorporate gscript as dropper
    - incorporate shellcode running module
