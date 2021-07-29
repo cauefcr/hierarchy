@@ -127,7 +127,6 @@ func main() {
 }
 
 func run() error {
-
 	priv := &rsa.PrivateKey{}
 	pub := &rsa.PublicKey{}
 	if _, err := os.Stat("private_server.key"); os.IsNotExist(err) {

@@ -11,16 +11,18 @@ FUD Go RAT using TOR for transport, the igraen recieve the control unit of the h
  - HD access
 
 ## to-do
- - Refactor so it's easy to read and change
- - Make it pretty to use
- - Add more functionalities:
-   - incorporate gscript as dropper
-   - incorporate shellcode running module
-   - incorporate privilege escalation module
-   - Go shell
-   - keylogger
-   - igraen-sided comands 
-   - mass commands
+ - [ ] Refactor so it's easy to read and change
+ - [ ] Evolve intelligence in hunters
+ - [ ] Evolve intelligence in ingraens
+ - [ ] Make it pretty to use
+ - [ ] Add more functionalities:
+   - [ ] incorporate gscript as dropper
+   - [ ] incorporate shellcode running module
+   - [ ] incorporate privilege escalation module
+   - [ ] Go shell
+   - [ ] keylogger
+   - [ ] igraen-sided comands 
+   - [ ] mass commands
 
 # DISCLAIMER
 This is for research porpuses only, don't use it without the user written consent to being hacked with it.
