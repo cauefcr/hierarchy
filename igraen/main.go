@@ -264,7 +264,6 @@ func run() error {
 }
 
 func PostToURL(url string, t *tor.Tor, data []byte) (string, error) {
-	// fmt.Println("posting to url", string(data))
 	dialCtx, dialCancel := context.WithTimeout(context.Background(), 300*time.Second)
 	defer dialCancel()
 	// Make connection
