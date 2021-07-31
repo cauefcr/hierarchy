@@ -263,9 +263,9 @@ func run() error {
 	return http.Serve(onion, nil)
 }
 
-func PostToURL(cc string, t *tor.Tor, data []byte) (string, error) {
-	fmt.Println("posting to cc", string(data))
-	dialCtx, dialCancel := context.WithTimeout(context.Background(), 300*time.Hour)
+func PostToURL(url string, t *tor.Tor, data []byte) (string, error) {
+	// fmt.Println("posting to url", string(data))
+	dialCtx, dialCancel := context.WithTimeout(context.Background(), 300*time.Second)
 	defer dialCancel()
 	// Make connection
 	dialer, err := t.Dialer(dialCtx, nil)
@@ -277,14 +277,14 @@ func PostToURL(cc string, t *tor.Tor, data []byte) (string, error) {
 
 	jsonValue, _ := json.Marshal(values)
 
-	resp, err := httpClient.Post(cc, "application/json", bytes.NewBuffer(jsonValue))
+	resp, err := httpClient.Post(url, "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
 		return "", err
 	}
 	defer resp.Body.Close()
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
+	// fmt.Println("response Status:", resp.Status)
+	// fmt.Println("response Headers:", resp.Header)
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
+	// fmt.Println("response Body:", string(body))
 	return string(body), nil
 }

